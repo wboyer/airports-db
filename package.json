@@ -1,0 +1,12 @@
+{
+  "name": "airports-db",
+  "description": "Airports DB and API",
+  "version": "0.0.1",
+  "private": true,
+  "files": ["./src/api"],
+  "main": "./src/api/js/airports",
+  "dependencies": {
+    "express": "*",
+    "mongodb": "*"
+  }
+}
