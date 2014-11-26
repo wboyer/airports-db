@@ -62,11 +62,11 @@ exports.findAll = function(req, res)
 	});
 };
  
-exports.searchByPrefix = function(res, func)
+exports.searchByPrefix = function(req, res)
 {
 	addCorsHeaders(res);
 
-	var prefix = req.params.prefix;
+	var prefix = req.params.q;
 
 	db.collection('airports_index', function(err, collection) {
 		var query = JSON.parse('{"_id": { "prefix": "' + prefix + '"}}');
@@ -77,7 +77,7 @@ exports.searchByPrefix = function(res, func)
 				res.send({'error': 'An error has occurred'});
 			}
 			else
-				func(doc ? doc.value.matches : []);
+				res.send(doc ? doc.value.matches : []);
 		});
 	});
 }
@@ -85,6 +85,6 @@ exports.searchByPrefix = function(res, func)
 exports.addRoutes = function(app)
 {
 	app.get('/airports', exports.findAll);
-	app.get('/airports/:id', exports.findByCode);
+	app.get('/airports/code', exports.findByCode);
 	app.get('/airports/search', exports.searchByPrefix);
 };
