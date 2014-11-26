@@ -37,7 +37,7 @@ db.runCommand(
                 for (s in substrings)
                     for (var i = 1; (i < 10) && (i <= substrings[s].length); i++) {
                         var key = JSON.parse('{"prefix" : "' + substrings[s].substring(0, i).toLowerCase() + '"}');
-                        var value = JSON.parse('{"matches": [{"code": "' + airport.code + '"},{"name": "' + airport.name + '"},{"city": "' + airport.city + '"},{"country": "' + airport.country + '"}]}');
+                        var value = JSON.parse('{"matches": [{"code": "' + airport.code + '","name": "' + airport.name + '","city": "' + airport.city + '","country": "' + airport.country + '"}]}');
                         emit(key, value);
                     }
 
