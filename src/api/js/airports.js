@@ -80,11 +80,11 @@ exports.searchByPrefix = function(req, res)
 				res.send(doc ? doc.value.matches : []);
 		});
 	});
-}
+};
 
 exports.addRoutes = function(app)
 {
 	app.get('/airports', exports.findAll);
-	app.get('/airports/code', exports.findByCode);
-	app.get('/airports/search', exports.searchByPrefix);
+	app.get('/airports/:code', exports.findByCode);
+	app.get('/airports/search/:q', exports.searchByPrefix);
 };
