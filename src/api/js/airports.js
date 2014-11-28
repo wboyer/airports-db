@@ -41,8 +41,10 @@ exports.findByCode = function (req, res)
                 res.send({'error': 'An error has occurred'});
             }
             else
-                if (!doc)
+                if (!doc) {
                     res.statusCode = 404;
+                    res.send({'error': 'Not found'});
+                }
                 else
                     res.send(doc);
         });
