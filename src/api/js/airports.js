@@ -1,11 +1,9 @@
+// Implements the underlying methods for three Express routes, under /api/airports.
+
 var mongodb = require('mongodb');
 
-var Server = mongodb.Server;
-var Db = mongodb.Db;
-var BSON = mongodb.BSONPure;
-
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('test', server);
+var server = new mongodb.Server('localhost', 27017, {auto_reconnect: true});
+db = new mongodb.Db('test', server);
 
 db.open(function (err, db)
 {

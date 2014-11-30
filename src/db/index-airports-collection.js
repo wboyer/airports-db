@@ -1,19 +1,4 @@
-db.runCommand(
-    {
-        mapReduce: "airports",
-
-        map: function ()
-        {
-            emit("count", 1);
-        },
-
-        reduce: function (key, values)
-        {
-            return Array.sum(values);
-        },
-
-        out: { merge: "airports_index" }
-    });
+// Use MapReduce to index the airports data by code/name/city/country prefixes up to 10 characters in length.
 
 db.runCommand(
     {
@@ -23,8 +8,8 @@ db.runCommand(
         {
             function emitPrefixes(str, airport)
             {
-				if (!str)
-					return;
+                if (!str)
+                    return;
 
                 var substrings = [];
                 var regexp = /\w+/g;
@@ -68,27 +53,28 @@ db.runCommand(
         reduce: function (key, values)
         {
             var matches = [];
-			var uniqueCodes = {};
+            var uniqueCodes = {};
 
             for (var i in values) {
                 var value = values[i];
 
                 for (var j in value.matches) {
-	                var match = value.matches[j];
+                    var match = value.matches[j];
                     if (!match)
                         continue;
 
-					var code = match.code;
-					if (uniqueCodes[code])
+                    var code = match.code;
+                    if (uniqueCodes[code])
                         continue;
                     uniqueCodes[code] = true;
 
                     matches.push(match);
-				}
+                }
             }
 
             return { "matches": matches };
         },
 
         out: { merge: "airports_index" }
-    });
+    }
+);
